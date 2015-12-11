@@ -1,0 +1,31 @@
+<h1><%= @location_and_time %></h1>
+<%= form_tag "/", method: :get do %>
+<div>
+  <%= label_tag :city %>
+  <%= text_field_tag :city %>
+</div>
+<div>
+  <%= label_tag :state %>
+  <%= text_field_tag :state %>
+</div>
+<%= submit_tag "Submit" %>
+<% end %>
+
+<h1>Weather for <%= @location %></h1>
+<table>
+  <tr>
+    <th>Time</th>
+    <th>WindSpeed</th>
+    <th>Temperature</th>
+    <th>Status</th>
+  </tr>
+<% @forecasts.each do |forecast| %>
+  <tr>
+    <td><%= forecast["timestamp"].to_datetime.strftime("%d-%m-%Y %H:%M") %></td>
+    <td><%= forecast["weather"]["measured"]["wind_speed"] %></td>
+    <td><%= forecast["weather"]["measured"]["temperature"] - 273 %></td>
+    <td><%= forecast["weather"]["status"] %></td>
+  </tr>
+<% end %>
+
+</table>
